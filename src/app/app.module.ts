@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { ConstantsService } from './services/constants.service';
+import { NetworkService } from './services/network.service';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [ConstantsService, NetworkService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
