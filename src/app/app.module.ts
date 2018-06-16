@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastModule } from 'ng2-toastr';
 
 import { AppComponent } from './app.component';
 import { ConstantsService } from './services/constants.service';
@@ -21,6 +23,7 @@ import { ManageUsersComponent } from './retailer-home/management/users/manage-us
 import { AddEditUserComponent } from './retailer-home/management/users/add-edit-user.component';
 import { ProfileComponent } from './retailer-home/management/profile/profile.component';
 import { NotificationsComponent } from './retailer-home/management/notifications/notifications.component';
+import { ToasterComponent } from './shared/toaster.component';
 
 @NgModule({
   declarations: [
@@ -40,11 +43,14 @@ import { NotificationsComponent } from './retailer-home/management/notifications
     ManageUsersComponent,
     AddEditUserComponent,
     ProfileComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    ToasterComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    BrowserAnimationsModule,
+    ToastModule.forRoot(),
+    FormsModule,
   ],
   providers: [ConstantsService, NetworkService],
   bootstrap: [AppComponent]
