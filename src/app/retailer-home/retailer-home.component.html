@@ -1,3 +1,96 @@
-<p>
-  retailer-home works!
-</p>
+<div class="container">
+  <!--Retailer Website Name-->
+  <h3>
+    {{retailer_website_name}}
+  </h3>
+
+  <!--Navigation Bar-->
+  <div id="navigation-bar">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid custom-container-fluid">
+
+        <!--Navigation links to Manage Retailers and Users-->
+        <ul class="nav navbar-nav">
+
+          <!--Home / Product list page for customers-->
+          <li routerLinkActive="active">
+            <a routerLink="products">Home</a>
+          </li>
+
+          <!--Management stuff-->
+          <!--Manage Products-->
+          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a routerLink="management/products">Manage Products</a>
+          </li>
+          <!--Manage Users-->
+          <li routerLinkActive="active">
+            <a routerLink="management/users">Manage Users</a>
+          </li>
+          <!--Manage orders which are placed by customers-->
+          <li routerLinkActive="active">
+            <a routerLink="management/orders">Manage Orders</a>
+          </li>
+        </ul>
+
+
+        <ul class="nav navbar-nav navbar-right">
+
+          <!--Login-->
+          <li>
+            <a routerLink="login"><span class="glyphicon glyphicon-log-in"></span>&nbsp; Login</a>
+          </li>
+
+          <!--Cart-->
+          <li>
+            <a routerLink="cart"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp; Cart</a>
+          </li>
+
+          <!--Profile Drop down-->
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="glyphicon glyphicon-user"></span>&nbsp; Profile<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+
+              <!--For Customers-->
+              <!--Manage Address-->
+              <li>
+                <a routerLink="address">Manage Addresses</a>
+              </li>
+              <!--Reset Password-->
+              <li>
+                <a role="button">Reset Password</a>
+              </li>
+              <!--Order History-->
+              <li>
+                <a routerLink="history">Order History</a>
+              </li>
+
+              <!--For Admins-->
+              <!--Update Profile-->
+              <li>
+                <a routerLink="management/profile">Update Profile</a>
+              </li>
+              <!--Update Notification Settings-->
+              <li>
+                <a routerLink="management/notifications">Update Notification Settings</a>
+              </li>
+
+              <!--For all users-->
+              <!--Logout-->
+              <li>
+                <a role="button"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout</a>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <!--Router Outlet based on navigation bar tab selection-->
+  <router-outlet></router-outlet>
+</div>
+
+<app-toaster></app-toaster>
