@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'ng2-toastr';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ConstantsService } from './services/constants.service';
@@ -51,6 +53,26 @@ import { ToasterComponent } from './shared/toaster.component';
     BrowserAnimationsModule,
     ToastModule.forRoot(),
     FormsModule,
+    HttpModule,
+    RouterModule.forRoot([
+      { path: ':url_part', component: RetailerHomeComponent, children: [
+        { path: 'products', component: ProductsComponent },
+        { path: 'products/:product_id', component: SingleProductComponent },
+        { path: 'login', component: LoginComponent },
+        { path: 'signup', component: SignupComponent },
+        { path: 'cart', component: CartComponent },
+        { path: 'checkout', component: CheckoutComponent },
+        { path: 'address', component: AddressComponent },
+        { path: 'history', component: HistoryComponent },
+        { path: 'management/orders', component: OrdersComponent },
+        { path: 'management/products', component: ManageProductsComponent },
+        { path: 'management/products/:product_id', component: AddEditProductComponent },
+        { path: 'management/users', component: ManageUsersComponent },
+        { path: 'management/users/:user_id', component: AddEditUserComponent },
+        { path: 'management/profile', component: ProfileComponent },
+        { path: 'management/notifications', component: NotificationsComponent }
+      ]}
+    ])
   ],
   providers: [ConstantsService, NetworkService],
   bootstrap: [AppComponent]
