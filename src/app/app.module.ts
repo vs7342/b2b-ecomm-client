@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastModule } from 'ng2-toastr';
+import { ToastModule, ToastOptions } from 'ng2-toastr';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -26,6 +26,10 @@ import { AddEditUserComponent } from './retailer-home/management/users/add-edit-
 import { ProfileComponent } from './retailer-home/management/profile/profile.component';
 import { NotificationsComponent } from './retailer-home/management/notifications/notifications.component';
 import { ToasterComponent } from './shared/toaster.component';
+
+export class CustomToastOptions extends ToastOptions {
+  positionClass = 'toast-bottom-right';
+}
 
 @NgModule({
   declarations: [
@@ -74,7 +78,7 @@ import { ToasterComponent } from './shared/toaster.component';
       ]}
     ])
   ],
-  providers: [ConstantsService, NetworkService],
+  providers: [ConstantsService, NetworkService, [{ provide: ToastOptions, useClass: CustomToastOptions }]],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
