@@ -1,3 +1,26 @@
-<p>
-  login works!
-</p>
+<div class="col-xs-4 col-xs-offset-4">
+
+  <!--Component header-->
+  <h4>
+      Login
+  </h4>
+
+  <!--Login Form-->
+  <div class="form-group">
+    <label for="email">Email ID</label>
+    <input type="email" class="form-control" id="email" placeholder="Your Email" [(ngModel)]="email">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Your Password" [(ngModel)]="password">
+  </div>
+
+  <br/>
+
+  <!--Sign In button-->
+  <button type="button" class="btn btn-primary col-xs-6 col-xs-offset-3" (click)="login()">Login</button>
+
+</div>
+
+<!--Toaster for displaying messages-->
+<app-toaster></app-toaster>

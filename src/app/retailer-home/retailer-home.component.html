@@ -13,21 +13,21 @@
         <ul class="nav navbar-nav">
 
           <!--Home / Product list page for customers-->
-          <li routerLinkActive="active">
+          <li routerLinkActive="active" *ngIf="user_type_id != 2 && user_type_id != 3">
             <a routerLink="products">Home</a>
           </li>
 
           <!--Management stuff-->
           <!--Manage Products-->
-          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <li routerLinkActive="active" *ngIf="is_user_logged_in && user_type_id == 3">
             <a routerLink="management/products">Manage Products</a>
           </li>
           <!--Manage Users-->
-          <li routerLinkActive="active">
+          <li routerLinkActive="active" *ngIf="is_user_logged_in && user_type_id == 3">
             <a routerLink="management/users">Manage Users</a>
           </li>
           <!--Manage orders which are placed by customers-->
-          <li routerLinkActive="active">
+          <li routerLinkActive="active" *ngIf="is_user_logged_in && (user_type_id == 3 || user_type_id == 2)">
             <a routerLink="management/orders">Manage Orders</a>
           </li>
         </ul>
@@ -36,17 +36,17 @@
         <ul class="nav navbar-nav navbar-right">
 
           <!--Login-->
-          <li>
+          <li routerLinkActive="active" *ngIf="!is_user_logged_in">
             <a routerLink="login"><span class="glyphicon glyphicon-log-in"></span>&nbsp; Login</a>
           </li>
 
           <!--Cart-->
-          <li>
+          <li routerLinkActive="active" *ngIf="is_user_logged_in && user_type_id == 1">
             <a routerLink="cart"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp; Cart</a>
           </li>
 
           <!--Profile Drop down-->
-          <li class="dropdown">
+          <li class="dropdown" *ngIf="is_user_logged_in">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="glyphicon glyphicon-user"></span>&nbsp; Profile<span class="caret"></span>
             </a>
@@ -54,32 +54,32 @@
 
               <!--For Customers-->
               <!--Manage Address-->
-              <li>
-                <a routerLink="address">Manage Addresses</a>
-              </li>
-              <!--Reset Password-->
-              <li>
-                <a role="button">Reset Password</a>
+              <li *ngIf="user_type_id == 1">
+                <a routerLink="address"><span class="glyphicon glyphicon-plane"></span>&nbsp; Manage Addresses</a>
               </li>
               <!--Order History-->
-              <li>
-                <a routerLink="history">Order History</a>
+              <li *ngIf="user_type_id == 1">
+                <a routerLink="history"><span class="glyphicon glyphicon-calendar"></span>&nbsp; Order History</a>
               </li>
 
               <!--For Admins-->
               <!--Update Profile-->
-              <li>
-                <a routerLink="management/profile">Update Profile</a>
+              <li *ngIf="user_type_id == 3">
+                <a routerLink="management/profile"><span class="glyphicon glyphicon-pencil"></span>&nbsp; Update Profile</a>
               </li>
               <!--Update Notification Settings-->
-              <li>
-                <a routerLink="management/notifications">Update Notification Settings</a>
+              <li *ngIf="user_type_id == 3">
+                <a routerLink="management/notifications"><span class="glyphicon glyphicon-bell"></span>&nbsp; Update Notification Settings</a>
               </li>
 
               <!--For all users-->
+              <!--Reset Password-->
+              <li>
+                <a role="button"><span class="glyphicon glyphicon-transfer"></span>&nbsp; Reset Password</a>
+              </li>
               <!--Logout-->
               <li>
-                <a role="button"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout</a>
+                <a role="button" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout</a>
               </li>
             </ul>
           </li>
@@ -90,7 +90,7 @@
   </div>
 
   <!--Router Outlet based on navigation bar tab selection-->
-  <router-outlet></router-outlet>
+  <router-outlet (activate)="routerLinkActivated()"></router-outlet>
 </div>
 
 <app-toaster></app-toaster>

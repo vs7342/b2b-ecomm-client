@@ -28,4 +28,14 @@ export class ConstantsService {
     localStorage.removeItem('token');
   }
 
+  static getLoggedInUserType() {
+    // Get the token and decode the payload part
+    const token = localStorage.getItem('token');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload['user']['UserType_id'];
+    } else {
+      return null;
+    }
+  }
 }
