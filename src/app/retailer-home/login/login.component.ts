@@ -60,6 +60,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
+  signup() {
+    this.router.navigate(['../signup'], { relativeTo: this.route });
+  }
+
   ngOnDestroy() {
     this.sub.unsubscribe();
   }

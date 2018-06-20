@@ -4,7 +4,7 @@
 
     <!--List of Retailers-->
     <div *ngFor="let retailer of retailer_list" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-      <a class="card btn" [routerLink]="['', retailer.Url_Part]">
+      <a class="card btn" [routerLink]="['', retailer.Url_Part, 'products']">
         <div>
           {{retailer.Website_Title}}
         </div>

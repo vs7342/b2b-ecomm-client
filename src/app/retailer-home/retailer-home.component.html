@@ -40,6 +40,11 @@
             <a routerLink="login"><span class="glyphicon glyphicon-log-in"></span>&nbsp; Login</a>
           </li>
 
+          <!--Signup-->
+          <li routerLinkActive="active" *ngIf="!is_user_logged_in">
+            <a routerLink="signup"><span class="glyphicon glyphicon-check"></span>&nbsp; Signup</a>
+          </li>
+
           <!--Cart-->
           <li routerLinkActive="active" *ngIf="is_user_logged_in && user_type_id == 1">
             <a routerLink="cart"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp; Cart</a>

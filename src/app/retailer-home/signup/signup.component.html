@@ -1,3 +1,35 @@
-<p>
-  signup works!
-</p>
+<div class="col-xs-4 col-xs-offset-4">
+
+  <!--Component Header-->
+  <h4>Signup</h4>
+
+  <!--Form Inputs-->
+  <div class="form-group">
+    <label for="fname">First Name</label>
+    <input type="text" class="form-control" id="fname" placeholder="Your First Name" [(ngModel)]="user.First_Name">
+  </div>
+  <div class="form-group">
+    <label for="lname">Last Name</label>
+    <input type="text" class="form-control" id="lname" placeholder="Your Last Name" [(ngModel)]="user.Last_Name">
+  </div>
+  <div class="form-group">
+    <label for="email">Email ID</label>
+    <input type="email" class="form-control" id="email" placeholder="Your Email ID" [(ngModel)]="user.Email">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Your Password" [(ngModel)]="user.Password">
+  </div>
+  <div class="form-group">
+    <label for="re-password">Re-enter Password</label>
+    <input type="password" class="form-control" id="re-password" placeholder="Re-enter Password" [(ngModel)]="re_password">
+  </div>
+
+  <br/>
+  <!--Signup button-->
+  <button type="button" class="btn btn-primary col-xs-6 col-xs-offset-3" (click)="signup()">Register</button>
+
+</div>
+
+<!--Toaster for displaying messages-->
+<app-toaster></app-toaster>
