@@ -38,4 +38,13 @@ export class ConstantsService {
       return null;
     }
   }
+
+  static getS3Details() {
+    return {
+      ACCESS_KEY_ID : 'dummy_access_key_id',
+      SECRET_ACCESS_KEY : 'dummy_secret',
+      S3_REGION : 'dummy_region',
+      BUCKET : 'dummy_bucket_name',
+    };
+  }
 }
