@@ -1,3 +1,84 @@
-<p>
-  add-edit-product works!
-</p>
+<div class="col-xs-8 col-xs-offset-2">
+
+  <!--Component Header-->
+  <h4 *ngIf="product.id == 0">
+    Add Product
+  </h4>
+  <h4 *ngIf="product.id > 0">
+    Edit Product
+  </h4>
+
+  <br/>
+
+  <!--Form Inputs-->
+  <div class="row">
+
+    <!--Input Text Fields-->
+    <div class="col-xs-6">
+
+      <!--Product Name-->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Product Name" [(ngModel)]="product.Name">
+      </div>
+
+      <!--Product Short Description-->
+      <div class="form-group">
+        <label for="short-desc">Short Description</label>
+        <input type="text" class="form-control" id="short-desc" placeholder="Short description of the product" [(ngModel)]="product.Short_Description">
+      </div>
+
+      <!--Product Detail Description-->
+      <div class="form-group">
+        <label for="detail-desc">Detail Description</label>
+        <textarea rows="4" class="form-control" id="detail-desc" placeholder="Detail description of the product" [(ngModel)]="product.Detail_Description"></textarea>
+      </div>
+
+      <!--Product Price-->
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number"  class="form-control" step="0.01" min="0.01" id="price" placeholder="Product Price" [(ngModel)]="product.Price">
+      </div>
+
+      <!--Available Quantity-->
+      <div class="form-group">
+        <label for="quantity">Available Quantity</label>
+        <input type="number"  class="form-control" step="1" min="0" id="quantity" placeholder="Product Quantity" [(ngModel)]="product.Quantity">
+      </div>
+
+    </div>
+
+    <!--Image Stuff-->
+    <label for="file-input">Product Image</label>
+    <div class="col-xs-6 img-section">
+
+      <!--Image Display-->
+      <img *ngIf="product.Image_Url.length > 0" [src]="product.Image_Url"/>
+      <img *ngIf="product.Image_Url.length == 0" src="assets/images/default_product.png"/>
+
+      <!--Image Selection-->
+      <label class="btn btn-default">
+        <input id="file-input" type="file" (change)="selectFile($event)">
+      </label>
+      <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <!--Minimum Quantity Threshold-->
+    <div class="form-group col-xs-6">
+      <label for="qthresh">Minimum Quantity Threshold</label>
+      <input type="number"  class="form-control" step="1" min="0" id="qthresh" placeholder="Minimum Quantity Threshold" [(ngModel)]="product.Minimum_Quantity_Threshold">
+    </div>
+
+  </div>
+
+  <!--Save Button-->
+  <button type="button" class="btn btn-primary" (click)="saveProduct()">Save Product</button>
+
+</div>
+
+<!--Toaster for displaying messages-->
+<app-toaster></app-toaster>

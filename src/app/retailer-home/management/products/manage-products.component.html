@@ -1,3 +1,61 @@
-<p>
-  manage-products works!
-</p>
+<div class="col-xs-10 col-xs-offset-1">
+
+  <!--Component Header-->
+  <h4>
+    Manage Products
+  </h4>
+
+  <!--Add Product Button-->
+  <button type="button" class="btn btn-primary pull-right btn-add" (click)="addProduct()">
+    <span class="glyphicon glyphicon-plus"></span>&nbsp; Add Product
+  </button>
+
+  <!--Product List-->
+  <table class="table table-hover">
+
+    <!--Headers-->
+    <thead>
+      <tr>
+        <th width="5%">ID</th>
+        <th width="20%">Name</th>
+        <th width="20%">Image</th>
+        <th width="10%">Price</th>
+        <th width="10%">Qty</th>
+        <th width="22%">Quantity Threshold</th>
+        <th width="13%">Edit</th>
+      </tr>
+    </thead>
+
+    <!--Table Body-->
+
+    <!--This table body will be displayed if no products are found-->
+    <tbody *ngIf="products == undefined || products.length == 0">
+      <tr>
+        <td scope="row" colspan="7" style="text-align: center">No Products found</td>
+      </tr>
+    </tbody>
+
+    <!--This table body will be shown when there is at least 1 product in the list-->
+    <tbody *ngIf="products.length > 0">
+      <tr *ngFor="let single_product of products">
+        <th scope="row">{{single_product.id}}</th>
+        <td scope="row">{{single_product.Name}}</td>
+        <td scope="row">
+          <img *ngIf="single_product.Image_Url.length > 0" [src]="single_product.Image_Url"/>
+          <img *ngIf="single_product.Image_Url.length == 0" src="assets/images/default_product.png"/>
+        </td>
+        <td scope="row">${{single_product.Price}}</td>
+        <td scope="row">{{single_product.Quantity}}</td>
+        <td scope="row">{{single_product.Minimum_Quantity_Threshold}}</td>
+        <td scope="row">
+          <button type="button" class="btn btn-primary" (click)="editProduct(single_product.id)">Edit Product</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>
+
+<!--Toaster for displaying messages-->
+<app-toaster></app-toaster>
