@@ -1,3 +1,69 @@
-<p>
-  add-edit-user works!
-</p>
+<div class="col-xs-4 col-xs-offset-4">
+
+  <!--Component Header-->
+  <h4 *ngIf="user.id == 0">Add User</h4>
+  <h4 *ngIf="user.id != 0">Edit User</h4>
+
+  <!--Form Input Fields-->
+
+  <!--First Name-->
+  <div class="form-group">
+    <label for="fname">First Name</label>
+    <input type="text" class="form-control" id="fname" placeholder="Your First Name" [(ngModel)]="user.First_Name">
+  </div>
+
+  <!--Last Name-->
+  <div class="form-group">
+    <label for="lname">Last Name</label>
+    <input type="text" class="form-control" id="lname" placeholder="Your Last Name" [(ngModel)]="user.Last_Name">
+  </div>
+
+  <!--User Type Dropdown-->
+  <!--User Type cannot be changed once a user is created.. Thus disable it in edit user mode-->
+  <div class="form-group row">
+    <label for="user-type" class="col-xs-4 col-form-label">User Type</label>
+    <div class="col-xs-8">
+      <select class="form-control" id="user-type" [(ngModel)]="user.UserType_id" [disabled]="user.id != 0">
+        <option value="2">Customer Service</option>
+        <option value="3">Admin</option>
+      </select>
+    </div>
+  </div>
+
+  <!--Mobile Number is only required for Admins-->
+  <div class="form-group" *ngIf="user.UserType_id == 3">
+    <label for="mobile">Mobile Number</label>
+    <input type="text" class="form-control" id="mobile" placeholder="Your Mobile Number" [(ngModel)]="user.Mobile_Number">
+  </div>
+
+  <!--Email-->
+  <div class="form-group">
+    <label for="email">Email ID</label>
+    <input type="email" class="form-control" id="email" placeholder="Your Email ID" [(ngModel)]="user.Email">
+  </div>
+
+  <!--Checkbox to update password fields or not-->
+  <div class="form-group form-check form-check-inline" *ngIf="user.id != 0">
+    <input type="checkbox" class="form-check-input" id="password-upd" [(ngModel)]="is_update_password" [disabled]="user.id == 0">
+    <label for="password-upd" class="form-check-label" >Update Password?</label>
+  </div>
+
+  <!--Password Fields-->
+  <div *ngIf="is_update_password">
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Your Password" [(ngModel)]="user.Password">
+    </div>
+    <div class="form-group">
+      <label for="re-password">Re-enter Password</label>
+      <input type="password" class="form-control" id="re-password" placeholder="Re-enter Password" [(ngModel)]="re_password">
+    </div>
+  </div>
+
+  <!--Save Button-->
+  <button type="button" class="btn btn-primary col-xs-4 col-xs-offset-4" (click)="saveUser()">Save User</button>
+
+</div>
+
+<!--Toaster for displaying messages-->
+<app-toaster></app-toaster>

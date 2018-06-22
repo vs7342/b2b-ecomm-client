@@ -1,0 +1,11 @@
+h4{
+    text-align: center
+}
+
+.btn-add{
+    margin-right: 8px;
+}
+
+thead tr th, tbody tr td, tbody tr th{
+    text-align: center
+}

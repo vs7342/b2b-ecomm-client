@@ -1,3 +1,58 @@
-<p>
-  manage-users works!
-</p>
+<div class="col-xs-10 col-xs-offset-1">
+
+  <!--Component Header-->
+  <h4>
+    Manage Users
+  </h4>
+
+  <!--Button to create user-->
+  <button type="button" class="btn btn-primary pull-right btn-add" (click)="addUser()">
+    <span class="glyphicon glyphicon-plus"></span>&nbsp; Add User
+  </button>
+
+  <!--Table with the list of users-->
+  <table class="table table-hover">
+    
+    <!--Table Headers-->
+    <thead>
+      <tr>
+        <th width="5%">#</th>
+        <th width="20%">First Name</th>
+        <th width="20%">Last Name</th>
+        <th width="25%">Email</th>
+        <th width="20%">User Type</th>
+        <th width="10%">Edit User</th>
+      </tr>
+    </thead>
+
+    <!--Table body when there are no users-->
+    <tbody *ngIf="users.length == 0">
+      <tr>
+        <th scope="row" colspan="6">No Users Found</th>
+      </tr>
+    </tbody>
+
+    <!--Table body when there is atleast one user-->
+    <tbody *ngIf="users.length > 0">
+        <tr *ngFor="let single_user of users; let i = index">
+          <th scope="row">{{i + 1}}</th>
+          <td>{{single_user.First_Name}}</td>
+          <td>{{single_user.Last_Name}}</td>
+          <td>{{single_user.Email}}</td>
+          <td>
+            <span *ngIf="single_user.UserType_id == 2">Customer Service</span>
+            <span *ngIf="single_user.UserType_id == 3">Admin</span>
+          </td>
+          <td>
+              <button type="button" class="btn btn-primary" (click)="editUser(single_user.id)">Edit User</button>
+          </td>
+        </tr>
+    </tbody>
+
+  </table>
+
+
+</div>
+
+<!--Toaster for displaying messages-->
+<app-toaster></app-toaster>
