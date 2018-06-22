@@ -14,7 +14,7 @@ export class AddEditUserComponent implements OnInit {
 
   @ViewChild(ToasterComponent) toastr: ToasterComponent;
   user: User = new User(0, '', 2, '', '', '', '', '');
-  re_password: string;
+  re_password = '';
   is_update_password = true;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
@@ -51,10 +51,10 @@ export class AddEditUserComponent implements OnInit {
 
       // Add User - This means all fields are required
       if (
-        this.user.First_Name.length > 0 && 
-        this.user.Last_Name.length > 0 && 
+        this.user.First_Name.length > 0 &&
+        this.user.Last_Name.length > 0 &&
         this.user.Email.length > 0 &&
-        this.user.Password.length > 0 && 
+        this.user.Password.length > 0 &&
         this.re_password.length > 0
       ) {
 
@@ -80,12 +80,12 @@ export class AddEditUserComponent implements OnInit {
       }
 
     } else {
-      
+
       // Edit User - This means that password fields are optional
       // First validate if the user has entered in the required fields
       if (
-        this.user.First_Name.length > 0 && 
-        this.user.Last_Name.length > 0 && 
+        this.user.First_Name.length > 0 &&
+        this.user.Last_Name.length > 0 &&
         this.user.Email.length > 0
       ) {
 
@@ -108,7 +108,7 @@ export class AddEditUserComponent implements OnInit {
           // Since password is not to be updated, make the password attribute blank
           this.user.Password = '';
         }
-            
+
         // Finally Edit User
         // The control wouldn't have reached here if there was any inconsistencies with inputs
         this.userService.editUser(this.user).subscribe(data => {
@@ -123,7 +123,7 @@ export class AddEditUserComponent implements OnInit {
       } else {
         this.toastr.showWarning('First Name, Last Name and Email ID are required fields.');
       }
-      
+
     }
 
   }

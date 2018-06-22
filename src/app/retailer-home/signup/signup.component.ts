@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   @ViewChild(ToasterComponent) toastr: ToasterComponent;
   user = new User(-1, '', -1, '', '', '', '', '');
-  re_password: string;
+  re_password = '';
   url_part: string;
   sub: any;
 

@@ -41,6 +41,16 @@ export class UserService {
     return this.networkService.httpPut(url, user);
   }
 
+  updatePassword(user_id: number, old_password: string, new_password: string) {
+    const url = this.api_url + '/password';
+    const put_body = {
+      id: user_id,
+      Old_Password: old_password,
+      New_Password: new_password
+    };
+    return this.networkService.httpPut(url, put_body);
+  }
+
   getAllUsers() {
     const url = this.api_url + '/user';
     return this.networkService.httpGet(url);

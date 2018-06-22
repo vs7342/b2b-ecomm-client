@@ -3,7 +3,6 @@ import { UserNotificationSetting } from '../../../models/UserNotificationSetting
 import { ConstantsService } from '../../../services/constants.service';
 import { User } from '../../../models/User.model';
 import { UserService } from '../../../services/user.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterComponent } from '../../../shared/toaster.component';
 
 @Component({
@@ -18,7 +17,7 @@ export class NotificationsComponent implements OnInit {
   setting: UserNotificationSetting = new UserNotificationSetting(0, 0, false, false, false);
   user: User;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     // Get logged in user and subsequently their notification settings
@@ -34,7 +33,7 @@ export class NotificationsComponent implements OnInit {
     }
   }
 
-  //Save notification settings
+  // Save notification settings
   saveSettings() {
     this.userService.editNotificationSetting(this.setting).subscribe(data => {
       this.toastr.showSuccess(data['message']);

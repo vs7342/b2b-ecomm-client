@@ -38,7 +38,7 @@ export class ConstantsService {
       return null;
     }
   }
-  
+
   static getLoggedInUser() {
     // Get the token and decode the payload part
     const token = localStorage.getItem('token');
