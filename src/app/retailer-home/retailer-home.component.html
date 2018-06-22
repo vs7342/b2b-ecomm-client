@@ -80,7 +80,7 @@
               <!--For all users-->
               <!--Reset Password-->
               <li>
-                <a role="button"><span class="glyphicon glyphicon-transfer"></span>&nbsp; Reset Password</a>
+                <a role="button" (click)="showPasswordModal()"><span class="glyphicon glyphicon-transfer"></span>&nbsp; Reset Password</a>
               </li>
               <!--Logout-->
               <li>
@@ -96,6 +96,50 @@
 
   <!--Router Outlet based on navigation bar tab selection-->
   <router-outlet (activate)="routerLinkActivated()"></router-outlet>
+</div>
+
+<!--Modal to update password-->
+<div id="password-modal" *ngIf="password_modal_displayed">
+  <div class="modal-background fadeIn"></div>
+  <div class="modal-container fadeInDown">
+    <!--Close Button-->
+    <button type="button" class="close" aria-label="Close" (click)="hidePasswordModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <h3 class="modal-header">
+      Update Password
+    </h3>
+
+    <div class="modal-body">
+
+      <!--Modal body with 3 text fields-->
+      <div class="form-group">
+        <label for="current-password">Current Password</label>
+        <input type="password" class="form-control" id="current-password" placeholder="Current Password" [(ngModel)]="current_password">
+      </div>
+      <div class="form-group">
+        <label for="new-password">New Password</label>
+        <input type="password" class="form-control" id="new-password" placeholder="New Password" [(ngModel)]="new_password">
+      </div>
+      <div class="form-group">
+        <label for="re-password">Re-enter New Password</label>
+        <input type="password" class="form-control" id="re-password" placeholder="Re-enter Password" [(ngModel)]="re_password">
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <!--Button to save / cancel-->
+      <div class="row">
+        <button class="btn btn-success" (click)="updatePassword()">Update</button>
+        <button class="btn btn-danger" (click)="hidePasswordModal()">Cancel</button>
+      </div>
+
+    </div>
+
+  </div>
 </div>
 
 <app-toaster></app-toaster>

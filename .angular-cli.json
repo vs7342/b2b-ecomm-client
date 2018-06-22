@@ -21,6 +21,7 @@
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
+        "assets/styles/modals.css",
         "styles.css"
       ],
       "scripts": [],

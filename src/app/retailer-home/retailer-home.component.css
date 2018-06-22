@@ -11,3 +11,7 @@ h3{
   display: block;
   margin-top: 0;
 }
+
+.modal-container{
+  width: 25%;
+}
