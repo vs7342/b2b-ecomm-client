@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule, ToastOptions } from 'ng2-toastr';
 import { HttpModule } from '@angular/http';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 import { AppComponent } from './app.component';
 import { ConstantsService } from './services/constants.service';
@@ -56,6 +57,7 @@ export class CustomToastOptions extends ToastOptions {
     BrowserModule,
     BrowserAnimationsModule,
     ToastModule.forRoot(),
+    UiSwitchModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot([

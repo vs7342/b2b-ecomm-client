@@ -38,6 +38,17 @@ export class ConstantsService {
       return null;
     }
   }
+  
+  static getLoggedInUser() {
+    // Get the token and decode the payload part
+    const token = localStorage.getItem('token');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload['user'];
+    } else {
+      return null;
+    }
+  }
 
   static getS3Details() {
     return {

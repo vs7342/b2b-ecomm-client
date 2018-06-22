@@ -1,3 +1,40 @@
-<p>
-  notifications works!
-</p>
+<div class="col-xs-6 col-xs-offset-3">
+
+  <!--Component Header-->
+  <h4>
+    Notification Settings
+  </h4>
+
+  <div class="row">
+
+    <!--Desktop setting Toggle-->
+    <div class="col-xs-4 switch">
+      <ui-switch size="medium" id="desktop" [(ngModel)]="setting.Desktop"></ui-switch>
+      <label class="form-check-label" for="desktop">Desktop</label>
+    </div>
+
+    <!--SMS setting Toggle-->
+    <div class="col-xs-4 switch">
+      <ui-switch size="medium" id="sms" [(ngModel)]="setting.SMS"></ui-switch>
+      <label class="form-check-label" for="sms">SMS</label>
+    </div>
+
+    <!--Email setting Toggle-->
+    <div class="col-xs-4 switch">
+      <ui-switch size="medium" id="email" [(ngModel)]="setting.Email"></ui-switch>
+      <label class="form-check-label" for="email">Email</label>
+    </div>
+
+  </div>
+
+  <!--Save Button-->
+  <div class="row save">
+    <div class="col-xs-4 col-xs-offset-4">
+      <button type="button" class="btn btn-primary" (click)="saveSettings()">Save Settings</button>
+    </div>
+  </div>
+
+</div>
+
+<!--Toaster for displaying messages-->
+<app-toaster></app-toaster>

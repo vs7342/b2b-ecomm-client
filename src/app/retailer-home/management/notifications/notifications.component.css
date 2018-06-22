@@ -1,0 +1,21 @@
+h4{
+    text-align: center
+}
+
+.switch{
+    margin-top: 25px;
+    display: flex;
+}
+
+.switch label{
+    padding: 5px;
+    padding-left: 10px;
+}
+
+.save{
+    margin-top: 25px;
+}
+
+.save button{
+    width: 100%;
+}
