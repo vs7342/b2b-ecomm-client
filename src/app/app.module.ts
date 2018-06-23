@@ -6,6 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule, ToastOptions } from 'ng2-toastr';
 import { HttpModule } from '@angular/http';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { ConstantsService } from './services/constants.service';
@@ -58,6 +61,8 @@ export class CustomToastOptions extends ToastOptions {
     BrowserAnimationsModule,
     ToastModule.forRoot(),
     UiSwitchModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot([

@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, isDevMode } from '@angular/core';
 import { PublicService } from '../services/public.service';
 import { ToasterComponent } from '../shared/toaster.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConstantsService } from '../services/constants.service';
-import { User } from '../models/User.model';
 import { UserService } from '../services/user.service';
+import { FcmService } from '../services/fcm.service';
 
 @Component({
   selector: 'app-retailer-home',
   templateUrl: './retailer-home.component.html',
   styleUrls: ['./retailer-home.component.css'],
-  providers: [PublicService, UserService]
+  providers: [PublicService, UserService, FcmService]
 })
 export class RetailerHomeComponent implements OnInit {
 
@@ -31,7 +31,8 @@ export class RetailerHomeComponent implements OnInit {
     private publicService: PublicService,
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private fcmService: FcmService
   ) { }
 
   ngOnInit() {
@@ -50,6 +51,12 @@ export class RetailerHomeComponent implements OnInit {
       // Since the user is logged in, the user will also have a user type
       this.is_user_logged_in = true;
       this.user_type_id = ConstantsService.getLoggedInUserType();
+      // If the user is admin, ask for notification permission. If granted, save the fcm token in DB.
+      if (this.user_type_id === 3) {
+        // Fetch user id since if permission is granted, we need to stored the fcm token in DB against that user.
+        const logged_in_user_id = ConstantsService.getLoggedInUserId();
+        this.fcmService.getPermission(logged_in_user_id);
+      }
     } else {
       this.is_user_logged_in = false;
       this.user_type_id = -1;
@@ -74,6 +81,22 @@ export class RetailerHomeComponent implements OnInit {
   }
 
   logout() {
+    // If the user was admin, delete the fcm token from DB and local storage
+    const logged_in_user_id = ConstantsService.getLoggedInUserId();
+    const logged_in_user_type_id = ConstantsService.getLoggedInUserType();
+    if (logged_in_user_type_id === 3) {
+      ConstantsService.deleteFcmToken();
+      this.userService.editFCMToken(logged_in_user_id, '').subscribe(data => {
+        if (isDevMode()) {
+          console.log('FCM Token Deleted successfully');
+        }
+      }, error => {
+        if (isDevMode()) {
+          console.log(error);
+        }
+      });
+    }
+
     // Delete the token
     ConstantsService.deleteToken();
 
@@ -100,9 +123,9 @@ export class RetailerHomeComponent implements OnInit {
       if (this.new_password === this.re_password) {
 
         // Everything seems to be fine.. Now fetch user id and make the update password call
-        const logged_in_user = ConstantsService.getLoggedInUser() as User;
-        if (logged_in_user) {
-          this.userService.updatePassword(logged_in_user.id, this.current_password, this.new_password).subscribe(data => {
+        const logged_in_user_id = ConstantsService.getLoggedInUserId();
+        if (logged_in_user_id) {
+          this.userService.updatePassword(logged_in_user_id, this.current_password, this.new_password).subscribe(data => {
             // Show success message
             this.toastr.showSuccess(data['message']);
 

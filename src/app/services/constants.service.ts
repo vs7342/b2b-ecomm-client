@@ -39,6 +39,35 @@ export class ConstantsService {
     }
   }
 
+  static getLoggedInUserId() {
+    // Get the token and decode the payload part
+    const token = localStorage.getItem('token');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload['user']['id'];
+    } else {
+      return null;
+    }
+  }
+
+  static setFcmToken(token: string) {
+    localStorage.setItem('fcm', token);
+  }
+
+  static getFcmToken() {
+    const token = localStorage.getItem('fcm');
+    // Check if a token is not null/undefined.. else return blank string
+    if (token) {
+      return token;
+    } else {
+      return '';
+    }
+  }
+
+  static deleteFcmToken() {
+    localStorage.removeItem('fcm');
+  }
+
   static getLoggedInUser() {
     // Get the token and decode the payload part
     const token = localStorage.getItem('token');
