@@ -1,3 +1,104 @@
-<p>
-  checkout works!
-</p>
+<div class="col-xs-10 col-xs-offset-1">
+
+  <!--Component Header-->
+  <h4>
+    Order Checkout
+  </h4>
+
+  <!--Order Overview-->
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1 order-overview">
+
+      <!--Heading-->
+      <h5><em><strong>Order Overview</strong></em></h5>
+
+      <!--Product List-->
+      <div class="single-cart row" *ngFor="let single_cart of carts">
+
+        <!--Product Image-->
+        <div class="col-xs-2">
+          <div class="product-image">
+            <img *ngIf = "single_cart['Product']['Image_Url'].length > 0" [src] = "single_cart['Product']['Image_Url']">
+            <img *ngIf = "single_cart['Product']['Image_Url'].length == 0" src = "assets/images/default_product.png">
+          </div>
+        </div>
+
+        <!--Product Name and Price-->
+        <div class="col-xs-4 product-name-price">
+          <div>
+            {{single_cart['Product']['Name']}}
+          </div>
+          <div>
+            Price - $ {{single_cart['Product']['Price'] | number : '1.2-2'}}
+          </div>
+        </div>
+
+        <!--Product Quantity in cart-->
+        <div class="col-xs-3 product-quantity">
+          Qty Ordered - {{single_cart.Quantity}}
+        </div>
+
+        <!--Sub total-->
+        <div class="col-xs-3 product-sub-total">
+          Sub Total - $ {{single_cart['Product']['Price'] * single_cart.Quantity | number : '1.2-2'}}
+        </div>
+
+      </div>
+
+      <!--Grand Total-->
+      <div class="single-cart row">
+        <div class="col-xs-3 pull-right grand-total">
+          <em>Grand Total - $ {{grand_total | number : '1.2-2'}}</em>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!--Drop downs to select shipping / billing address-->
+  <!--By default first address will be selected for both-->
+
+  <!--Shipping Address-->
+  <div class="row">
+    <div class="form-group col-xs-6 col-xs-offset-3">
+      <label for="shipping-address">Shipping Address</label>
+        <select class="form-control" id="shipping-address" [(ngModel)]="selected_shipping_address_id" >
+          <option
+            *ngFor="let single_address of address_list"
+            [value]="single_address.id">
+            {{ single_address.Address_Line_1 + ', ' + single_address.City + ', ' + single_address.State + ', ' + single_address.Pincode }}
+          </option>
+        </select>
+    </div>
+  </div>
+
+  <!--Billing Address-->
+  <div class="row">
+    <div class="form-group col-xs-6 col-xs-offset-3">
+      <label for="billing-address">Billing Address</label>
+      <select class="form-control" id="billing-address" [(ngModel)]="selected_billing_address_id" >
+        <option
+          *ngFor="let single_address of address_list"
+          [value]="single_address.id">
+          {{ single_address.Address_Line_1 + ', ' + single_address.City + ', ' + single_address.State + ', ' + single_address.Pincode }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!--Place Order Button on right-->
+  <!--Update Order Button on left-->
+  <div class="row">
+    <div class="col-xs-6 col-xs-offset-3">
+      <button class="btn btn-primary pull-left" [routerLink]="['../cart']">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp; Update Order
+      </button>
+      <button class="btn btn-success pull-right" (click)="placeOrder()">
+        Place Order &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<app-toaster></app-toaster>
