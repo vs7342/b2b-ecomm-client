@@ -1,3 +1,137 @@
-<p>
-  cart works!
-</p>
+<div class="col-xs-12">
+
+  <!--Component Header-->
+  <h4>
+    Your Cart
+  </h4>
+
+  <!--Product List if cart has at least one product in it-->
+  <div class="products-present" *ngIf="carts.length > 0">
+
+    <!--Table with all cart instance details-->
+    <table class="table">
+
+      <!--Table headers-->
+      <thead>
+        <tr>
+          <th width="5%">#</th>
+          <th width="60%">Product</th>
+          <th width="20%">Qty</th>
+          <th width="10%">Sub-total</th>
+          <th width="10%" style="text-align: center">Remove</th>
+        </tr>
+      </thead>
+
+      <!--Table Body-->
+      <tbody>
+        <tr *ngFor="let single_cart of carts; let i = index">
+
+          <!--Item Number-->
+          <th class="product-number">
+            {{i+1}}
+          </th>
+
+          <!--Product Details Card-->
+          <td>
+            <div class="row">
+              <!--Left section of the card with product image-->
+              <div class="col-xs-3">
+                <div class="product-image">
+                  <img *ngIf = "single_cart['Product']['Image_Url'].length > 0" [src] = "single_cart['Product']['Image_Url']">
+                  <img *ngIf = "single_cart['Product']['Image_Url'].length == 0" src = "assets/images/default_product.png">
+                </div>
+              </div>
+              <!--Right section of the card with basic product details-->
+              <div class="col-xs-9">
+                <div class="product-details">
+                  <!--Product Name-->
+                  <div class="product-name">
+                    {{single_cart['Product']['Name']}}
+                  </div>
+                  <!--Product Short Description-->
+                  <div class="short-description">
+                    {{single_cart['Product']['Short_Description']}}
+                  </div>
+                  <!--Product Price-->
+                  <div class="product-price">
+                    $ {{single_cart['Product']['Price'] | number : '1.2-2'}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+
+          <!--Quantity-->
+          <td class="td-qty">
+            <div class="input-group update-qty">
+              <input type="number" step="1" min="1" class="form-control" [(ngModel)]="single_cart.Quantity">
+              <span class="input-group-btn">
+              <button class="btn btn-default" type="button" (click)="updateProductQtyInCart(single_cart.id, single_cart.Quantity)">Update Qty.</button>
+            </span>
+            </div>
+          </td>
+
+          <!--Sub Total = Qty * Price-->
+          <td class="td-sub-total">
+            $ {{single_cart['Product']['Price'] * single_cart.Quantity | number : '1.2-2'}}
+          </td>
+
+
+          <!--Button to remove product from cart-->
+          <td class="td-remove-product">
+            <button class="btn btn-danger" (click)="updateProductQtyInCart(single_cart.id, 0)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+
+      <!--Grand total / Checkout / Empty Cart-->
+      <tfoot>
+        <tr>
+          <!--Grand total text-->
+          <td colspan="3" class="grand-total-text">
+            Grand Total
+          </td>
+          <!--Grand total amount-->
+          <td>
+            <div class="grand-total-number">
+              $ {{grand_total | number : '1.2-2'}}
+            </div>
+          </td>
+
+          <!--Checkout / Empty Cart-->
+          <td>
+            <div class="checkout">
+              <button class="btn btn-success" (click)="checkout()">
+                Checkout &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>
+              </button>
+            </div>
+            <div class="empty-cart">
+              <button class="btn btn-danger pull-left" (click)="emptyCart()">
+                <span class="glyphicon glyphicon-trash"></span> Empty Cart
+              </button>
+            </div>
+          </td>
+
+        </tr>
+      </tfoot>
+
+    </table>
+
+  </div>
+
+  <!--Message when no products in cart-->
+  <div class="col-xs-6 col-xs-offset-3 no-products" *ngIf="carts.length == 0">
+    <div class="alert alert-info">No Products Found In Cart</div>
+    <div class="back-button">
+      <button class="btn btn-primary" [routerLink]="['../products']">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Continue Shopping
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!--Toaster for displaying messages-->
+<app-toaster></app-toaster>
