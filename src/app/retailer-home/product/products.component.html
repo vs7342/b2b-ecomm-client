@@ -1,3 +1,63 @@
-<p>
-  products works!
-</p>
+<div class="col-xs-12">
+
+  <!--Component Header-->
+  <h4>
+    Product List
+  </h4>
+
+  <!--Product List-->
+  <div id="product-list"  *ngIf="products.length > 0">
+    <div class="single-product" *ngFor="let single_product of products">
+      <div class="row" (click)="goToProduct(single_product.id, $event.target.className)">
+
+        <!--Product Image-->
+        <div class="col-xs-3">
+          <div class="image">
+            <img *ngIf="single_product.Image_Url.length > 0" [src]="single_product.Image_Url">
+            <img *ngIf="single_product.Image_Url.length == 0" src="assets/images/default_product.png">
+          </div>
+        </div>
+
+        <!--Product Details-->
+        <div [ngClass]="(user_id == 0) ? 'col-xs-9' : 'col-xs-7'">
+          <div class="name">
+            {{single_product.Name}}
+          </div>
+          <div class="short-description">
+            {{single_product.Short_Description}}
+          </div>
+          <div class="price">
+            $ {{single_product.Price | number : '1.2-2'}}
+          </div>
+        </div>
+
+        <!--Add to cart button displayed only to logged in users-->
+        <div class="col-xs-2" *ngIf="user_id != 0">
+          <div class="add-to-cart">
+            <button
+              class="btn btn-primary"
+              [disabled]="isProductInCart(single_product.id) || single_product.Quantity == 0"
+              (click)="addToCart(single_product.id, $event.target.className)">
+              <span *ngIf="!isProductInCart(single_product.id) && single_product.Quantity > 0" class="glyphicon glyphicon-shopping-cart"></span>&nbsp;
+              <span *ngIf="isProductInCart(single_product.id)" class="glyphicon glyphicon-check"></span>
+              {{ isProductInCart(single_product.id) ? 'Product Added' : (single_product.Quantity != 0 ? 'Add to Cart' : 'Sold Out') }}
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--When no products are created by retailer-->
+  <div id="no-products" *ngIf="products.length == 0">
+    <div class="row">
+      <div class="alert alert-info col-xs-6 col-xs-offset-3" role="alert">
+        No products are added yet. Kindly check back later.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<app-toaster></app-toaster>

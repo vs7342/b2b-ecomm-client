@@ -1,3 +1,86 @@
-<p>
-  single-product works!
-</p>
+<div class="col-xs-8 col-xs-offset-2">
+
+  <!--First row will consist of image on the left, and basic details on the right-->
+  <div class="row brief">
+
+    <!--Product Image-->
+    <div class="col-xs-6">
+      <div class="product-image">
+        <img *ngIf="product.Image_Url.length > 0" [src]="product.Image_Url">
+        <img *ngIf="product.Image_Url.length == 0" src="assets/images/default_product.png">
+      </div>
+    </div>
+
+    <!--Basic Details-->
+    <div class="col-xs-6">
+
+      <!--These details are visible to everyone-->
+      <div class="public">
+        <div class="product-name">
+          {{product.Name}}
+        </div>
+        <div class="short-description">
+          {{product.Short_Description}}
+        </div>
+        <div class="product-price">
+          $ {{product.Price | number : '1.2-2'}}
+        </div>
+      </div>
+
+      <!--These details are visible only to logged in users-->
+      <div class="customers" *ngIf="user_id != 0">
+
+        <!--Cart Details-->
+        <div class="cart" *ngIf="product.Quantity > 0">
+
+          <!--To be shown when product not in cart (Add to cart with number)-->
+          <div class="input-group add-to-cart" *ngIf="product_cart.id == 0">
+            <input type="number" step="1" min="1" class="form-control" [(ngModel)]="product_cart.Quantity">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" (click)="addProductToCart()">Add To Cart</button>
+            </span>
+          </div>
+
+          <!--To be shown when product in cart (Update Qty with number)-->
+          <label id="product-found-label" class="alert alert-info" *ngIf="product_cart.id != 0">
+            Product found in cart
+          </label>
+          <div class="input-group update-qty" *ngIf="product_cart.id != 0">
+            <input type="number" step="1" min="1" class="form-control" [(ngModel)]="product_cart.Quantity">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" (click)="updateProductQtyInCart()">Update Qty.</button>
+            </span>
+          </div>
+
+        </div>
+
+        <!--If the product quantity is 0, display this div-->
+        <div class="product-alert" *ngIf="product.Quantity <= 0">
+
+          <!--Display a button to alert me if alert is not already set-->
+          <button type="button" class="btn btn-link pull-left" *ngIf="!is_alert_active" (click)="createAlert()">
+            Notify me when product becomes available
+          </button>
+
+          <!--Else.. Display a message / info tag which says that alert already set-->
+          <div class="alert alert-info" role="alert" *ngIf="is_alert_active">
+            Alert already set. You will be notified when product becomes available.
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!--Second row will only consist of detail description of the product-->
+  <div class="row detail">
+    <div class="col-xs-12 detail-description">
+      {{product.Detail_Description}}
+    </div>
+  </div>
+
+</div>
+
+<app-toaster></app-toaster>
