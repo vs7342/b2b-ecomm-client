@@ -1,0 +1,19 @@
+h4{
+  text-align: center;
+}
+
+.btn-add{
+  margin-right: 8px;
+}
+
+table{
+  margin-top: 70px;
+}
+
+th, td{
+  text-align: center;
+}
+
+.modal-container{
+  width: 25%;
+}

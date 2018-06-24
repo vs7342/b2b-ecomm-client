@@ -1,3 +1,115 @@
-<p>
-  address works!
-</p>
+<div class="col-xs-10 col-xs-offset-1">
+
+  <!--Component Header-->
+  <h4>
+    Manage Addresses
+  </h4>
+
+  <!--Add Address Button-->
+  <button type="button" class="btn btn-primary pull-right btn-add" (click)="openModal(null)">
+    <span class="glyphicon glyphicon-plus"></span>&nbsp; Add Address
+  </button>
+
+  <!--Table of addresses-->
+  <table class="table table-hover">
+
+    <!--Headers-->
+    <thead>
+      <tr>
+        <th width="5%">#</th>
+        <th width="25%">Address Line 1</th>
+        <th width="20%">City</th>
+        <th width="20%">State</th>
+        <th width="15%">Pin Code</th>
+        <th width="25%">Edit</th>
+      </tr>
+    </thead>
+
+    <!--This table body will be displayed if no addresses are found-->
+    <tbody *ngIf="address_list.length == 0">
+      <tr>
+        <td scope="row" colspan="6" style="text-align: center">No Addresses found</td>
+      </tr>
+    </tbody>
+
+    <!--This table body will be shown when there is at least 1 address in the list-->
+    <tbody *ngIf="address_list.length > 0">
+      <tr *ngFor="let single_address of address_list; let i = index">
+        <th scope="row">{{i + 1}}</th>
+        <td scope="row">{{single_address.Address_Line_1}}</td>
+        <td scope="row">{{single_address.City}}</td>
+        <td scope="row">{{single_address.State}}</td>
+        <td scope="row">{{single_address.Pincode}}</td>
+        <td scope="row">
+          <button type="button" class="btn btn-primary" (click)="openModal(single_address)">Edit Address</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>
+
+<!--Add / Edit Address Modal-->
+<div id="address-modal" *ngIf="is_modal_displayed">
+  <div class="modal-background fadeIn"></div>
+  <div class="modal-container fadeInDown">
+    <!--Close Button-->
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <h3 class="modal-header">
+      {{modal_title}}
+    </h3>
+
+    <div class="modal-body">
+
+      <!--Modal body with 5 text fields-->
+      <!--Address Line 1-->
+      <div class="form-group">
+        <label for="address-line-1">Address Line 1*</label>
+        <input type="text" class="form-control" id="address-line-1" placeholder="Address Line 1" [(ngModel)]="selected_address.Address_Line_1">
+      </div>
+
+      <!--Address Line 2-->
+      <div class="form-group">
+        <label for="address-line-2">Address Line 2</label>
+        <input type="text" class="form-control" id="address-line-2" placeholder="Address Line 2" [(ngModel)]="selected_address.Address_Line_2">
+      </div>
+
+      <!--City-->
+      <div class="form-group">
+        <label for="city">City*</label>
+        <input type="text" class="form-control" id="city" placeholder="City" [(ngModel)]="selected_address.City">
+      </div>
+
+      <!--State-->
+      <div class="form-group">
+        <label for="state">State*</label>
+        <input type="text" class="form-control" id="state" placeholder="State" [(ngModel)]="selected_address.State">
+      </div>
+
+      <!--Pin code-->
+      <div class="form-group">
+        <label for="pin-code">Pin code*</label>
+        <input type="text" class="form-control" id="pin-code" placeholder="Pin code" [(ngModel)]="selected_address.Pincode">
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <!--Button to save / cancel-->
+      <div class="row">
+        <button class="btn btn-success" (click)="saveAddress()">Save Address</button>
+        <button class="btn btn-danger" (click)="closeModal()">Cancel</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!--Toaster for displaying messages-->
+<app-toaster></app-toaster>
