@@ -1,3 +1,43 @@
-<p>
-  profile works!
-</p>
+<div class="col-xs-4 col-xs-offset-4">
+
+  <!--Component Header-->
+  <h4>
+    Update Profile
+  </h4>
+
+  <!--Profile input fields-->
+
+  <!--First Name-->
+  <div class="form-group">
+    <label for="fname">First Name</label>
+    <input type="text" class="form-control" id="fname" placeholder="First Name" [(ngModel)]="user.First_Name">
+  </div>
+
+  <!--Last Name-->
+  <div class="form-group">
+    <label for="lname">Last Name</label>
+    <input type="text" class="form-control" id="lname" placeholder="Last Name" [(ngModel)]="user.Last_Name">
+  </div>
+
+  <!--Email-->
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" placeholder="Email" [(ngModel)]="user.Email">
+  </div>
+
+  <!--Mobile Number-->
+  <div class="form-group">
+    <label for="mobile">Mobile Number</label>
+    <input type="text" class="form-control" id="mobile" placeholder="+1XXXXXXXXXX" [(ngModel)]="user.Mobile_Number">
+  </div>
+
+  <!--Save button-->
+  <div class="save-btn">
+    <button type="button" class="btn btn-primary" (click)="saveProfile()">Update Profile</button>
+  </div>
+
+
+</div>
+
+<!--Toaster for displaying messages-->
+<app-toaster></app-toaster>
