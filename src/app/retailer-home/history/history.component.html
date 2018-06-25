@@ -1,3 +1,53 @@
-<p>
-  history works!
-</p>
+<div class="col-xs-12">
+
+  <!--Component Header-->
+  <h4>
+    Your Order History
+  </h4>
+
+  <!--Order List-->
+  <table class="table table-hover" *ngIf="orders.length > 0">
+
+    <!--Table Headers-->
+    <thead>
+      <tr>
+        <th width="10%">Order ID</th>
+        <th width="15%">Date Ordered</th>
+        <th width="15%">Number of Products</th>
+        <th width="15%">Order Status</th>
+        <th width="15%">Status As On</th>
+        <th width="15%">Order Total</th>
+        <th width="15%">Order Details</th>
+      </tr>
+    </thead>
+
+    <!--List of orders placed-->
+    <tbody>
+      <tr *ngFor="let single_order of orders">
+        <th scope="row">{{single_order.id}}</th>
+        <td scope="row">{{single_order.Created_At | date: 'dd/MM/yyyy'}}</td>
+        <td scope="row">{{single_order['OrderProducts'].length}}</td>
+        <td scope="row">{{single_order['StatusType']['Type']}}</td>
+        <td scope="row">{{single_order.Updated_At | date: 'dd/MM/yyyy'}}</td>
+        <td scope="row">$ {{getOrderTotal(single_order['OrderProducts']) | number : '1.2-2'}}</td>
+        <td scope="row">
+          <button type="button" class="btn btn-primary" (click)="viewOrder(single_order.id)">View Details</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+  <!--Message when no orders found-->
+  <div class="col-xs-6 col-xs-offset-3 no-orders" *ngIf="orders.length == 0">
+    <div class="alert alert-info">No Orders Found</div>
+    <div class="back-button">
+      <button class="btn btn-primary" [routerLink]="['../products']">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Continue Shopping
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<app-toaster></app-toaster>
