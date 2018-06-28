@@ -1,9 +1,9 @@
 export class Message {
   constructor(
     public id: number,
-    public From_User_id: number,
-    public To_User_id: number,
+    public Conversation_id: number,
     public Text: string,
+    public Is_From_Customer: boolean,
     public Created_At: string
   ) {}
 }
