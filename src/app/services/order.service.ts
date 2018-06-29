@@ -40,7 +40,7 @@ export class OrderService {
     return this.networkService.httpGet(url);
   }
 
-  updateOrder(order_id: number, status_type_id: number, tracking_id: number) {
+  updateOrder(order_id: number, status_type_id: number, tracking_id: string) {
     const url = this.api_url + '/order';
     const put_body = {
       id: order_id,

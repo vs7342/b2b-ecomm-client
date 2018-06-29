@@ -6,8 +6,6 @@ import { Message } from '../models/Message.model';
 @Injectable()
 export class MessageService {
 
-  constructor() { }
-
   api_url: string;
 
   constructor(private networkService: NetworkService) {
