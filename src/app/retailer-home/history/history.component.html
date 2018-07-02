@@ -31,7 +31,7 @@
         <td scope="row">{{single_order.Updated_At | date: 'dd/MM/yyyy'}}</td>
         <td scope="row">$ {{getOrderTotal(single_order['OrderProducts']) | number : '1.2-2'}}</td>
         <td scope="row">
-          <button type="button" class="btn btn-primary" (click)="viewOrder(single_order.id)">View Details</button>
+          <button type="button" class="btn btn-primary" (click)="viewOrder(single_order)">View Details</button>
         </td>
       </tr>
     </tbody>
@@ -49,5 +49,13 @@
   </div>
 
 </div>
+
+<!--Modal to View order details-->
+<app-order-details-modal
+  *ngIf="is_order_details_modal_displayed"
+  [order]="order_being_viewed"
+  [display_user_details] = "false"
+  (close) = "closeDetailsModal()">
+</app-order-details-modal>
 
 <app-toaster></app-toaster>

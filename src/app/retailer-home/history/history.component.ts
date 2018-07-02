@@ -16,6 +16,10 @@ export class HistoryComponent implements OnInit {
   orders: Order[] = [];
   user_id = 0;
 
+  // For view order details modal
+  order_being_viewed = new Order(0, 0, 0, 0, 1, '', '', '');
+  is_order_details_modal_displayed = false;
+
   constructor(
     private orderService: OrderService
   ) { }
@@ -48,7 +52,15 @@ export class HistoryComponent implements OnInit {
     });
   }
 
-  viewOrder(order_id: number) {
+  viewOrder(order: Order) {
+    // Assign the modal variable and display the modal
+    this.order_being_viewed = order;
+    this.is_order_details_modal_displayed = true;
+  }
 
+  closeDetailsModal() {
+    // Destroy the modal variable and hide the modal
+    this.is_order_details_modal_displayed = false;
+    this.order_being_viewed = new Order(0, 0, 0, 0, 1, '', '', '');
   }
 }

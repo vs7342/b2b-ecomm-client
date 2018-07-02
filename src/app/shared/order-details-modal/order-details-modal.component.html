@@ -1,0 +1,119 @@
+<div id="order_details-modal">
+  <div class="modal-background fadeIn"></div>
+  <div class="modal-container fadeInDown">
+    <!--Close Button-->
+    <button type="button" class="close" aria-label="Close" (click)="emitCloseModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <h3 class="modal-header">
+      Order Details
+    </h3>
+
+    <div class="modal-body">
+
+      <!--Modal body with order details-->
+      
+      <!--Order Overview-->
+      <div class="overview row">
+        <div class="col-xs-6 pull-left">
+          <div class="row">
+            <div class="col-xs-6">Order ID: </div>
+            <div class="col-xs-6">{{order.id}}</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">Ordered On: </div>
+            <div class="col-xs-6">{{order.Created_At | date: 'dd/MM/yyyy'}}</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">Order Status: </div>
+            <div class="col-xs-6"><strong><em>{{getOrderStatus(order.StatusType_id)}}</em></strong></div>
+          </div>
+          <div class="row" *ngIf="order.StatusType_id == 3 || order.StatusType_id == 4">
+            <div class="col-xs-6">Tracking ID: </div>
+            <div class="col-xs-6">{{order.Tracking_id}}</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">Status as on: </div>
+            <div class="col-xs-6">{{order.Updated_At | date: 'dd/MM/yyyy'}}</div>
+          </div>
+        </div>
+        <div class="personal-details col-xs-6" *ngIf="display_user_details">
+          <div class="row">
+            <div class="col-xs-12"><em><strong>Customer Details: </strong></em></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">First Name: </div>
+            <div class="col-xs-6">{{order.User.First_Name}}</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">Last Name: </div>
+            <div class="col-xs-6">{{order.User.Last_Name}}</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">Email</div>
+            <div class="col-xs-6">{{order.User.Email}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="addresses row">
+        <div class="col-xs-6">
+          <div><em><strong>Shipping Address</strong></em></div>
+          <div>{{order.Shipping_Address.Address_Line_1}}</div>
+          <div>{{order.Shipping_Address.Address_Line_2}}</div>
+          <div>{{order.Shipping_Address.City + ', ' + order.Shipping_Address.State + ' - ' + order.Shipping_Address.Pincode}}</div>
+        </div>
+
+        <div class="col-xs-6">
+          <div><em><strong>Billing Address</strong></em></div>
+          <div>{{order.Billing_Address.Address_Line_1}}</div>
+          <div>{{order.Billing_Address.Address_Line_2}}</div>
+          <div>{{order.Billing_Address.City + ', ' + order.Billing_Address.State + ' - ' + order.Billing_Address.Pincode}}</div>
+        </div>
+      </div>
+
+      <div class="product-list">
+        <table class="table table-hover">
+
+          <thead>
+            <tr>
+              <th width="20%">Product ID</th>
+              <th width="20%">Name</th>
+              <th width="20%">Rate</th>
+              <th width="20%">Qty</th>
+              <th width="20%">Sub Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let single_order_product of order.OrderProducts">
+              <th scope="row">{{single_order_product.Product.id}}</th>
+              <td>{{single_order_product.Product.Name}}</td>
+              <td>$ {{single_order_product.Product.Price | number : '1.2-2'}}</td>
+              <td>{{single_order_product.Quantity}}</td>
+              <td>$ {{single_order_product.Quantity * single_order_product.Product.Price | number : '1.2-2'}}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row" colspan="4">Grand Total:</th>
+              <th>$ {{grand_total | number : '1.2-2'}}</th>
+            </tr>
+          </tfoot>
+
+        </table>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <!--Button to save / cancel-->
+      <div class="row">
+        <button class="btn btn-danger" (click)="emitCloseModal()">Close</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

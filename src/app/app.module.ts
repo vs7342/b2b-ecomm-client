@@ -30,6 +30,7 @@ import { AddEditUserComponent } from './retailer-home/management/users/add-edit-
 import { ProfileComponent } from './retailer-home/management/profile/profile.component';
 import { NotificationsComponent } from './retailer-home/management/notifications/notifications.component';
 import { ToasterComponent } from './shared/toaster.component';
+import { OrderDetailsModalComponent } from './shared/order-details-modal/order-details-modal.component';
 
 export class CustomToastOptions extends ToastOptions {
   positionClass = 'toast-bottom-right';
@@ -54,7 +55,8 @@ export class CustomToastOptions extends ToastOptions {
     AddEditUserComponent,
     ProfileComponent,
     NotificationsComponent,
-    ToasterComponent
+    ToasterComponent,
+    OrderDetailsModalComponent
   ],
   imports: [
     BrowserModule,

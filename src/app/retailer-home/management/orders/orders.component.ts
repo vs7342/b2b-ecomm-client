@@ -20,6 +20,10 @@ export class OrdersComponent implements OnInit {
   status_type_id = 1;
   tracking_id = '';
 
+  // For view order details modal
+  order_being_viewed = new Order(0, 0, 0, 0, 1, '', '', '');
+  is_order_details_modal_displayed = false;
+
   onMouseEnter(element: any) {
     element.textContent = 'Update Status';
   }
@@ -98,8 +102,16 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  viewOrder(order_id: number) {
+  viewOrder(order: Order) {
+    // Assign the modal variable and display the modal
+    this.order_being_viewed = order;
+    this.is_order_details_modal_displayed = true;
+  }
 
+  closeDetailsModal() {
+    // Destroy the modal variable and hide the modal
+    this.is_order_details_modal_displayed = false;
+    this.order_being_viewed = new Order(0, 0, 0, 0, 1, '', '', '');
   }
 
 }
