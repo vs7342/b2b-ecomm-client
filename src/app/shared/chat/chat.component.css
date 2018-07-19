@@ -1,0 +1,81 @@
+h4 {
+  text-align: center;
+}
+
+.initiate-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.initiate-btn button {
+  width: 140px;
+}
+
+#waiting-msg {
+  text-align: center;
+}
+
+.conversation {
+  border: 1px solid rgba(161, 161, 161, 0.5);
+  border-radius: 10px;
+  padding-left: unset;
+  padding-right: unset;
+}
+
+.message-list {
+  border: 1px solid rgba(161, 161, 161, 0.5);
+  border-radius: 5px;
+  height: 500px;
+  margin: 10px;
+  overflow-x: hidden;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.sent, .received {
+  border: 1px solid rgba(161, 161, 161, 0.3);
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.msg-info, .msg-text {
+  padding: 3px;
+}
+
+.sent .msg-text, .sent .msg-info {
+  text-align: right;
+}
+
+.received .msg-text, .received .msg-info {
+  text-align: left;
+}
+
+.send-message {
+  display: flex;
+  height: 50px;
+  margin: 10px;
+}
+
+.message-text-box {
+  padding-left: unset;
+}
+
+.message-text-box textarea {
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+  border: 1px solid rgba(161, 161, 161, 0.5);
+  border-radius: 5px;
+  resize: none;
+  overflow: hidden;
+}
+
+.message-send-btn {
+  padding: 5px;
+}
+
+.message-send-btn button {
+  width: 100%;
+  height: 100%;
+  font-size: larger;
+}

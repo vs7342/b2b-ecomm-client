@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
+import * as io from 'socket.io-client';
 
 @Injectable()
 export class ConstantsService {
 
   static getBaseApiUrl() {
     return 'http://localhost:80';
+  }
+
+  static getChatSocket() {
+    return io('http://localhost:80/messages');
   }
 
   static getToken() {

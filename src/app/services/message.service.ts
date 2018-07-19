@@ -7,6 +7,7 @@ import { Message } from '../models/Message.model';
 export class MessageService {
 
   api_url: string;
+  conversation_id_key = 'con_id';
 
   constructor(private networkService: NetworkService) {
     this.api_url = ConstantsService.getBaseApiUrl();
@@ -45,5 +46,33 @@ export class MessageService {
   getAllMessages(conversation_id: number) {
     const url = this.api_url + '/message?Conversation_id=' + conversation_id;
     return this.networkService.httpGet(url);
+  }
+
+  getConversationDetails(conversation_id: number) {
+    const url = this.api_url + '/conversation?id=' + conversation_id;
+    return this.networkService.httpGet(url);
+  }
+
+  getClientsInSocketRoom(url_part: string, conversation_id: number) {
+    const url = this.api_url + '/socket/clients?conversation_id=' + conversation_id + '&url_part=' + url_part;
+    return this.networkService.httpGet(url);
+  }
+
+  saveConversationId(id: number) {
+    localStorage.setItem(this.conversation_id_key, id + '');
+  }
+
+  getConversationId() {
+    const id = localStorage.getItem(this.conversation_id_key);
+    // Check if the id is not null/undefined.. else return 0
+    if (id) {
+      return parseInt(id, 10);
+    } else {
+      return 0;
+    }
+  }
+
+  removeConversationId() {
+    localStorage.removeItem(this.conversation_id_key);
   }
 }

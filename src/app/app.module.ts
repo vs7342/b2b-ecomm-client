@@ -30,6 +30,7 @@ import { AddEditUserComponent } from './retailer-home/management/users/add-edit-
 import { ProfileComponent } from './retailer-home/management/profile/profile.component';
 import { NotificationsComponent } from './retailer-home/management/notifications/notifications.component';
 import { ToasterComponent } from './shared/toaster.component';
+import { ChatComponent } from './shared/chat/chat.component';
 import { OrderDetailsModalComponent } from './shared/order-details-modal/order-details-modal.component';
 
 export class CustomToastOptions extends ToastOptions {
@@ -56,6 +57,7 @@ export class CustomToastOptions extends ToastOptions {
     ProfileComponent,
     NotificationsComponent,
     ToasterComponent,
+    ChatComponent,
     OrderDetailsModalComponent
   ],
   imports: [
@@ -77,6 +79,7 @@ export class CustomToastOptions extends ToastOptions {
         { path: 'checkout', component: CheckoutComponent },
         { path: 'address', component: AddressComponent },
         { path: 'history', component: HistoryComponent },
+        { path: 'chat', component: ChatComponent },
         { path: 'management/orders', component: OrdersComponent },
         { path: 'management/products', component: ManageProductsComponent },
         { path: 'management/products/:product_id', component: AddEditProductComponent },

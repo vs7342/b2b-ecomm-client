@@ -5,12 +5,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConstantsService } from '../services/constants.service';
 import { UserService } from '../services/user.service';
 import { FcmService } from '../services/fcm.service';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-retailer-home',
   templateUrl: './retailer-home.component.html',
   styleUrls: ['./retailer-home.component.css'],
-  providers: [PublicService, UserService, FcmService]
+  providers: [PublicService, UserService, FcmService, MessageService]
 })
 export class RetailerHomeComponent implements OnInit {
 
@@ -31,6 +32,7 @@ export class RetailerHomeComponent implements OnInit {
     private publicService: PublicService,
     private route: ActivatedRoute,
     private router: Router,
+    private messageService: MessageService,
     private userService: UserService,
     private fcmService: FcmService
   ) { }
@@ -86,6 +88,7 @@ export class RetailerHomeComponent implements OnInit {
     const logged_in_user_type_id = ConstantsService.getLoggedInUserType();
     if (logged_in_user_type_id === 3) {
       ConstantsService.deleteFcmToken();
+      this.messageService.removeConversationId();
       this.userService.editFCMToken(logged_in_user_id, '').subscribe(data => {
         if (isDevMode()) {
           console.log('FCM Token Deleted successfully');

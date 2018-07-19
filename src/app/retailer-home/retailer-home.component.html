@@ -30,6 +30,11 @@
           <li routerLinkActive="active" *ngIf="is_user_logged_in && (user_type_id == 3 || user_type_id == 2)">
             <a routerLink="management/orders">Manage Orders</a>
           </li>
+
+          <!--Chat-->
+          <li routerLinkActive="active" *ngIf="is_user_logged_in && (user_type_id == 1 || user_type_id == 2)">
+            <a routerLink="chat">Online Support</a>
+          </li>
         </ul>
 
 

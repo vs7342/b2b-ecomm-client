@@ -1,0 +1,67 @@
+<div class="col-xs-12">
+
+  <h4>
+    Online Support
+  </h4>
+
+  <!--Buttons to Initiate Chat-->
+  <div class="initiate-btn" *ngIf="conversation_id == 0">
+    <!--For Customer-->
+    <button class="btn btn-success" *ngIf="user_type_id == 1 && !waiting_for_cs" (click)="onlineChat()">Online Support</button>
+    <!--For Customer Service-->
+    <button class="btn btn-primary" *ngIf="user_type_id == 2" (click)="goOnline()">Go Online</button>
+  </div>
+
+  <!--This is the div we want to display while waiting for the other client to connect-->
+  <div id="waiting-msg" *ngIf="!is_other_client_connected" class="col-xs-6 col-xs-offset-3">
+    <div class="alert alert-info" *ngIf="conversation_id == 0 && user_type_id == 1 && waiting_for_cs">Waiting for the Customer Service to Connect...</div>
+    <div class="alert alert-info" *ngIf="conversation_id != 0 && user_type_id == 2">Waiting for the Customer to Connect...</div>
+  </div>
+
+  <!--Conversation-->
+  <div class="conversation col-xs-8 col-xs-offset-2" *ngIf="conversation_id != 0 && is_other_client_connected">
+
+    <!--Message List-->
+    <div class="message-list" #allMessages>
+
+      <div class="single-message" *ngFor="let single_message of messages">
+
+        <div [ngClass]="((single_message.Is_From_Customer && user_type_id == 1) || (!single_message.Is_From_Customer && user_type_id == 2)) ? 'col-xs-8 pull-right sent' : 'col-xs-8 pull-left received'">
+
+          <div class="msg-text">
+            {{single_message.Text}}
+          </div>
+
+          <div class="msg-info">
+            <span class="username">
+              {{((single_message.Is_From_Customer && user_type_id == 1) || (!single_message.Is_From_Customer && user_type_id == 2)) ? 'You' : opposite_user_name}}
+            </span>
+            &nbsp;|&nbsp;
+            <span class="time">
+              {{single_message.Created_At | date: 'MMM dd - hh:mm a'}}
+            </span>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <!--Message Text Input and Send Button-->
+    <div class="send-message">
+      <div class="message-text-box col-xs-8">
+        <textarea maxlength="250" rows="2" [(ngModel)]="message_text" (keyup.enter)="sendMessage()"></textarea>
+      </div>
+      <div class="message-send-btn col-xs-2">
+        <button class="btn btn-primary" (click)="sendMessage()"><span class="glyphicon glyphicon-send"></span>&nbsp; Send</button>
+      </div>
+      <div class="message-send-btn col-xs-2">
+        <button class="btn btn-danger" (click)="endConversation()"><span class="glyphicon glyphicon-remove"></span>&nbsp; Leave</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<app-toaster></app-toaster>
