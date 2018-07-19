@@ -13,7 +13,7 @@
     <div class="modal-body">
 
       <!--Modal body with order details-->
-      
+
       <!--Order Overview-->
       <div class="overview row">
         <div class="col-xs-6 pull-left">
@@ -23,7 +23,7 @@
           </div>
           <div class="row">
             <div class="col-xs-6">Ordered On: </div>
-            <div class="col-xs-6">{{order.Created_At | date: 'dd/MM/yyyy'}}</div>
+            <div class="col-xs-6">{{order.Created_At | date: 'MMM d, y'}}</div>
           </div>
           <div class="row">
             <div class="col-xs-6">Order Status: </div>
@@ -35,7 +35,7 @@
           </div>
           <div class="row">
             <div class="col-xs-6">Status as on: </div>
-            <div class="col-xs-6">{{order.Updated_At | date: 'dd/MM/yyyy'}}</div>
+            <div class="col-xs-6">{{order.Updated_At | date: 'MMM d, y'}}</div>
           </div>
         </div>
         <div class="personal-details col-xs-6" *ngIf="display_user_details">

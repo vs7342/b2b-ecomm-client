@@ -32,7 +32,7 @@
     <tbody *ngIf="order_list.length > 0">
       <tr *ngFor="let single_order of order_list">
         <th scope="row">{{single_order.id}}</th>
-        <td>{{single_order.Created_At | date: 'dd/MM/yyyy'}}</td>
+        <td>{{single_order.Created_At | date: 'MMM d, y'}}</td>
         <td>{{single_order['OrderProducts'].length}}</td>
         <td>$ {{getOrderTotal(single_order['OrderProducts']) | number : '1.2-2'}}</td>
         <td>
@@ -48,7 +48,7 @@
             {{ getOrderStatus(single_order.StatusType_id) }}
           </button>
         </td>
-        <td>{{single_order.Updated_At | date: 'dd/MM/yyyy'}}</td>
+        <td>{{single_order.Updated_At | date: 'MMM d, y'}}</td>
       </tr>
     </tbody>
 

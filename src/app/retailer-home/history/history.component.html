@@ -25,10 +25,10 @@
     <tbody>
       <tr *ngFor="let single_order of orders">
         <th scope="row">{{single_order.id}}</th>
-        <td scope="row">{{single_order.Created_At | date: 'dd/MM/yyyy'}}</td>
+        <td scope="row">{{single_order.Created_At | date: 'MMM d, y'}}</td>
         <td scope="row">{{single_order['OrderProducts'].length}}</td>
         <td scope="row">{{single_order['StatusType']['Type']}}</td>
-        <td scope="row">{{single_order.Updated_At | date: 'dd/MM/yyyy'}}</td>
+        <td scope="row">{{single_order.Updated_At | date: 'MMM d, y'}}</td>
         <td scope="row">$ {{getOrderTotal(single_order['OrderProducts']) | number : '1.2-2'}}</td>
         <td scope="row">
           <button type="button" class="btn btn-primary" (click)="viewOrder(single_order)">View Details</button>
