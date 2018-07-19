@@ -5,9 +5,19 @@
     Product List
   </h4>
 
+  <!--Product Search Bar-->
+  <div class="input-group search col-xs-4">
+    <input type="text" class="form-control" placeholder="Search for Product" id="txtSearch" [(ngModel)]="productSearchTxt"/>
+    <div class="input-group-btn">
+      <button class="btn btn-primary">
+        <span class="glyphicon glyphicon-search"></span>
+      </button>
+    </div>
+  </div>
+
   <!--Product List-->
   <div id="product-list"  *ngIf="products.length > 0">
-    <div class="single-product" *ngFor="let single_product of products">
+    <div class="single-product" *ngFor="let single_product of products | productFilter : productSearchTxt">
       <div class="row" (click)="goToProduct(single_product.id, $event.target.className)">
 
         <!--Product Image-->

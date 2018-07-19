@@ -313,7 +313,14 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-    this.socket.destroy();
+    try {
+      // Socket cannot be destroyed unless user has joined a room
+      // But we need this statement since a user might join the room and leave the page
+      this.socket.destroy();
+    } catch (e) {
+      // Do nothing
+    }
+
     clearInterval(this.timer);
   }
 
