@@ -51,8 +51,8 @@ export class UserService {
     return this.networkService.httpPut(url, put_body);
   }
 
-  getAllUsers() {
-    const url = this.api_url + '/user';
+  getAllUsers(user_type_id: number) {
+    const url = this.api_url + '/user?UserType_id=' + user_type_id;
     return this.networkService.httpGet(url);
   }
 

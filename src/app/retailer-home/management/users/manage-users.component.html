@@ -5,6 +5,19 @@
     Manage Users
   </h4>
 
+  <!--User Type Filter-->
+  <div class="form-group pull-left col-xs-5 filter">
+    <label for="user-type" class="col-xs-3 col-form-label">Filter by</label>
+    <div class="col-xs-9">
+      <select class="form-control" id="user-type" [(ngModel)]="user_type_id" (change)="loadUsers()">
+        <option value="0">All Users</option>
+        <option value="1">Customer</option>
+        <option value="2">Customer Service</option>
+        <option value="3">Admin</option>
+      </select>
+    </div>
+  </div>
+
   <!--Button to create user-->
   <button type="button" class="btn btn-primary pull-right btn-add" (click)="addUser()">
     <span class="glyphicon glyphicon-plus"></span>&nbsp; Add User
@@ -12,7 +25,7 @@
 
   <!--Table with the list of users-->
   <table class="table table-hover">
-    
+
     <!--Table Headers-->
     <thead>
       <tr>
@@ -40,6 +53,7 @@
           <td>{{single_user.Last_Name}}</td>
           <td>{{single_user.Email}}</td>
           <td>
+            <span *ngIf="single_user.UserType_id == 1">Customer</span>
             <span *ngIf="single_user.UserType_id == 2">Customer Service</span>
             <span *ngIf="single_user.UserType_id == 3">Admin</span>
           </td>

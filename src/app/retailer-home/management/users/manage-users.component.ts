@@ -14,6 +14,7 @@ export class ManageUsersComponent implements OnInit {
 
   @ViewChild(ToasterComponent) toastr: ToasterComponent;
   users: User[] = [];
+  user_type_id = 0;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
@@ -22,7 +23,7 @@ export class ManageUsersComponent implements OnInit {
   }
 
   loadUsers() {
-    this.userService.getAllUsers().subscribe(data => {
+    this.userService.getAllUsers(this.user_type_id).subscribe(data => {
       this.users = data['data'];
     }, error => {
       this.toastr.showError(error);
