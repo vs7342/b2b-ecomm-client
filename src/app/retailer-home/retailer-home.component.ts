@@ -6,6 +6,7 @@ import { ConstantsService } from '../services/constants.service';
 import { UserService } from '../services/user.service';
 import { FcmService } from '../services/fcm.service';
 import { MessageService } from '../services/message.service';
+import { User } from '../models/User.model';
 
 @Component({
   selector: 'app-retailer-home',
@@ -21,6 +22,7 @@ export class RetailerHomeComponent implements OnInit {
   retailer_template_id: number;
   is_user_logged_in: boolean;
   user_type_id: number;
+  user_first_name = '';
 
   // Password modal related attributes
   password_modal_displayed = false;
@@ -53,6 +55,7 @@ export class RetailerHomeComponent implements OnInit {
       // Since the user is logged in, the user will also have a user type
       this.is_user_logged_in = true;
       this.user_type_id = ConstantsService.getLoggedInUserType();
+      this.user_first_name = (ConstantsService.getLoggedInUser() as User).First_Name;
       // If the user is admin, ask for notification permission. If granted, save the fcm token in DB.
       if (this.user_type_id === 3) {
         // Fetch user id since if permission is granted, we need to stored the fcm token in DB against that user.
@@ -62,6 +65,7 @@ export class RetailerHomeComponent implements OnInit {
     } else {
       this.is_user_logged_in = false;
       this.user_type_id = -1;
+      this.user_first_name = '';
     }
   }
 
