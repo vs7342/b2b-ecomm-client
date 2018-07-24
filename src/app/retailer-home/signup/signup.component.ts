@@ -14,7 +14,7 @@ import { ConstantsService } from '../../services/constants.service';
 export class SignupComponent implements OnInit, OnDestroy {
 
   @ViewChild(ToasterComponent) toastr: ToasterComponent;
-  user = new User(-1, '', -1, '', '', '', '', '');
+  user = new User(-1, '', -1, '', '', '', '', '', true);
   re_password = '';
   url_part: string;
   sub: any;

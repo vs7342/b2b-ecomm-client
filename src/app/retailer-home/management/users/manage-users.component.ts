@@ -30,6 +30,16 @@ export class ManageUsersComponent implements OnInit {
     });
   }
 
+  changeUserStatus(user_id: number, is_enabled: boolean) {
+    this.userService.updateUserStatus(user_id, is_enabled).subscribe(data => {
+      this.toastr.showSuccess(data['message']);
+    }, error => {
+      this.toastr.showError(error);
+      // Load users since we want ui-switch to go back to its previous state
+      this.loadUsers();
+    });
+  }
+
   editUser(id: number) {
     this.router.navigate(['' + id], {relativeTo: this.route});
   }

@@ -79,4 +79,13 @@ export class UserService {
     };
     return this.networkService.httpPut(url, put_body);
   }
+
+  updateUserStatus(user_id: number, is_enabled: boolean) {
+    const url = this.api_url + '/status/user';
+    const put_body = {
+      id: user_id,
+      Is_Enabled: is_enabled
+    };
+    return this.networkService.httpPut(url, put_body);
+  }
 }

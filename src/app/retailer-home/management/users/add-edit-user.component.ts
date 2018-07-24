@@ -13,7 +13,7 @@ import { ToasterComponent } from '../../../shared/toaster.component';
 export class AddEditUserComponent implements OnInit {
 
   @ViewChild(ToasterComponent) toastr: ToasterComponent;
-  user: User = new User(0, '', 2, '', '', '', '', '');
+  user: User = new User(0, '', 2, '', '', '', '', '', true);
   re_password = '';
   is_update_password = true;
 

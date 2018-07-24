@@ -30,11 +30,12 @@
     <thead>
       <tr>
         <th width="5%">#</th>
-        <th width="20%">First Name</th>
-        <th width="20%">Last Name</th>
-        <th width="25%">Email</th>
-        <th width="20%">User Type</th>
-        <th width="10%">Edit User</th>
+        <th width="17%">First Name</th>
+        <th width="17%">Last Name</th>
+        <th width="20%">Email</th>
+        <th width="15%">User Type</th>
+        <th width="15%">Enabled</th>
+        <th width="11%">Edit User</th>
       </tr>
     </thead>
 
@@ -56,6 +57,15 @@
             <span *ngIf="single_user.UserType_id == 1">Customer</span>
             <span *ngIf="single_user.UserType_id == 2">Customer Service</span>
             <span *ngIf="single_user.UserType_id == 3">Admin</span>
+          </td>
+          <td>
+            <ui-switch
+              id="enabled"
+              size="small"
+              defaultBgColor="red"
+              [(ngModel)]="single_user.Is_Enabled"
+              (change)="changeUserStatus(single_user.id, $event)"
+            ></ui-switch>
           </td>
           <td>
               <button type="button" class="btn btn-primary" (click)="editUser(single_user.id)">Edit User</button>

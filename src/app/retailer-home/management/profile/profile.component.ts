@@ -13,7 +13,7 @@ import {ConstantsService} from '../../../services/constants.service';
 export class ProfileComponent implements OnInit {
 
   @ViewChild(ToasterComponent) toastr: ToasterComponent;
-  user = new User(0, '', 3, '', '', '', '', '');
+  user = new User(0, '', 3, '', '', '', '', '', true);
 
   constructor(
     private userService: UserService
