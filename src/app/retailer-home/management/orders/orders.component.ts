@@ -42,9 +42,23 @@ export class OrdersComponent implements OnInit {
       case 4:
         return 'Delivered';
 
+      case 5:
+        return 'Issues';
+
       default:
         return 'Order Placed';
     }
+  }
+
+  getOrderClass(status_type_id: number) {
+    return {
+      'btn': true,
+      'btn-primary': true,
+      'btn-update': true,
+      'btn-danger': (status_type_id === 5),
+      'btn-warning': (status_type_id === 1),
+      'btn-success': (status_type_id === 4)
+    };
   }
 
   constructor(private orderService: OrderService) { }

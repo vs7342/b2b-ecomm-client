@@ -41,7 +41,7 @@
         <td>
           <button
             type="button"
-            class="btn btn-primary btn-update"
+            [ngClass]="getOrderClass(single_order.StatusType_id)"
             (mouseenter)="onMouseEnter($event.target)"
             (mouseleave)="onMouseLeave($event.target, single_order.StatusType_id)"
             (click)="openUpdateStatusModal(single_order)">
@@ -87,10 +87,11 @@
           <option value="2">Order Processed</option>
           <option value="3">Shipped</option>
           <option value="4">Delivered</option>
+          <option value="5">Issues</option>
         </select>
       </div>
 
-      <div class="form-group" *ngIf="status_type_id == 3 || status_type_id == 4">
+      <div class="form-group" *ngIf="status_type_id == 3 || status_type_id == 4 || status_type_id == 5">
         <label for="tracking-id">Tracking ID</label>
         <input type="text" class="form-control" id="tracking-id" placeholder="Tracking ID for the Order" [(ngModel)]="tracking_id">
       </div>

@@ -27,6 +27,9 @@ export class OrderDetailsModalComponent implements OnInit {
       case 4:
         return 'Delivered';
 
+      case 5:
+        return 'Issues';
+
       default:
         return 'Order Placed';
     }
