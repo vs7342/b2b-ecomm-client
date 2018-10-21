@@ -32,6 +32,10 @@ h4 {
   padding-right: 10px;
 }
 
+.opposite-user-name-message {
+  padding: 16px;
+}
+
 .sent, .received {
   border: 1px solid rgba(161, 161, 161, 0.3);
   border-radius: 5px;

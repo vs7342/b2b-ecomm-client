@@ -24,6 +24,13 @@
     <!--Message List-->
     <div class="message-list" #allMessages>
 
+      <div class="single-message">
+        <div class="col-xs-8 pull-left received opposite-user-name-message">
+          You are now chatting with {{opposite_user_name}}
+        </div>
+      </div>
+
+
       <div class="single-message" *ngFor="let single_message of messages">
 
         <div [ngClass]="((single_message.Is_From_Customer && user_type_id == 1) || (!single_message.Is_From_Customer && user_type_id == 2)) ? 'col-xs-8 pull-right sent' : 'col-xs-8 pull-left received'">
