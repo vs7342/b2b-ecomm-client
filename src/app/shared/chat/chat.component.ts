@@ -6,12 +6,15 @@ import { User } from '../../models/User.model';
 import { ToasterComponent } from '../toaster.component';
 import { Message } from '../../models/Message.model';
 import { Conversation } from '../../models/Conversation.model';
+import { Order } from '../../models/Order.model';
+import { Cart } from '../../models/Cart.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],
-  providers: [MessageService]
+  providers: [MessageService, UserService]
 })
 export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
@@ -19,13 +22,22 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   user_type_id = 0;
   user_id = 0;
   user_name = '';
+
+  // Opposite user details
   opposite_user_name = '';
+  opposite_user_id = 0;
 
   // Socket room details
   conversation_id = 0;
   is_other_client_connected = false;
   waiting_for_cs = false;
   url_part = '';
+
+  // Customer overview modal stuff
+  is_customer_overview_modal_displayed = false;
+  customer: User = new User(-1, '', 1, '', '', '', '', '', true);
+  orders: Order[] = [];
+  carts: Cart[] = [];
 
   // Misc
   @ViewChild(ToasterComponent) toastr: ToasterComponent;
@@ -36,7 +48,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   socket: any;
   timer: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private userService: UserService) { }
 
   ngOnInit() {
     // Fetch logged in user details and save details in respective variables
@@ -192,8 +204,10 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
       const users = data['data']['users'];
       if (users[0]['id'] === this.user_id) {
         this.opposite_user_name = users[1]['First_Name'] + ' ' + users[1]['Last_Name'];
+        this.opposite_user_id = users[1]['id'];
       } else {
         this.opposite_user_name = users[0]['First_Name'] + ' ' + users[0]['Last_Name'];
+        this.opposite_user_id = users[0]['id'];
       }
     }, error => {
       this.toastr.showError(error);
@@ -258,6 +272,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (this.user_name !== data.user_name) {
       this.toastr.showSuccess(data.user_name + ' joined the conversation.');
       this.opposite_user_name = data.user_name;
+      this.opposite_user_id = data.user_id;
       this.is_other_client_connected = true;
     }
   }
@@ -309,6 +324,26 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
       // Scroll to the bottom of message list
       this.allMessages.nativeElement.scrollTop = this.allMessages.nativeElement.scrollHeight;
     }
+  }
+
+  displayCustomerOverview() {
+    // Fetch customer overview from api
+    this.userService.getCustomerOverview(this.opposite_user_id).subscribe(data => {
+
+      // Assign the relevant variables
+      this.customer = data['data']['user'];
+      this.orders = data['data']['orders'];
+      this.carts = data['data']['carts'];
+
+      // Now display the modal
+      this.is_customer_overview_modal_displayed = true;
+    }, error => {
+      this.toastr.showError(error);
+    });
+  }
+
+  hideCustomerOverviewModal() {
+    this.is_customer_overview_modal_displayed = false;
   }
 
   ngOnDestroy() {

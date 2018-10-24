@@ -57,7 +57,7 @@
 
     <!--Message Text Input and Send Button-->
     <div class="send-message">
-      <div class="message-text-box col-xs-8">
+      <div [ngClass]="user_type_id == 2 ? 'message-text-box col-xs-6' : 'message-text-box col-xs-8'">
         <textarea maxlength="250" rows="2" [(ngModel)]="message_text" (keyup.enter)="sendMessage()"></textarea>
       </div>
       <div class="message-send-btn col-xs-2">
@@ -66,9 +66,21 @@
       <div class="message-send-btn col-xs-2">
         <button class="btn btn-danger" (click)="endConversation()"><span class="glyphicon glyphicon-remove"></span>&nbsp; Leave</button>
       </div>
+      <div class="message-customer-info col-xs-2" *ngIf="user_type_id == 2">
+        <button class="btn btn-info" (click)="displayCustomerOverview()">Customer <br/> Details</button>
+      </div>
     </div>
   </div>
 
 </div>
+
+<!--Customer overview modal-->
+<app-customer-overview
+  *ngIf="is_customer_overview_modal_displayed"
+  [user]="customer"
+  [carts]="carts"
+  [orders]="orders"
+  (close)="hideCustomerOverviewModal()"
+></app-customer-overview>
 
 <app-toaster></app-toaster>

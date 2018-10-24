@@ -33,6 +33,7 @@ import { ToasterComponent } from './shared/toaster.component';
 import { ProductFilterPipe } from './shared/product-filter.pipe';
 import { ChatComponent } from './shared/chat/chat.component';
 import { OrderDetailsModalComponent } from './shared/order-details-modal/order-details-modal.component';
+import { CustomerOverviewComponent } from './shared/customer-overview/customer-overview.component';
 
 export class CustomToastOptions extends ToastOptions {
   positionClass = 'toast-bottom-right';
@@ -60,7 +61,8 @@ export class CustomToastOptions extends ToastOptions {
     ToasterComponent,
     ProductFilterPipe,
     ChatComponent,
-    OrderDetailsModalComponent
+    OrderDetailsModalComponent,
+    CustomerOverviewComponent
   ],
   imports: [
     BrowserModule,

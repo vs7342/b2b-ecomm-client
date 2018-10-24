@@ -88,4 +88,9 @@ export class UserService {
     };
     return this.networkService.httpPut(url, put_body);
   }
+
+  getCustomerOverview(customer_user_id: number) {
+    const url = this.api_url + '/customer/overview/' + customer_user_id;
+    return this.networkService.httpGet(url);
+  }
 }

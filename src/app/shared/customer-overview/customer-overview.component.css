@@ -1,0 +1,19 @@
+.modal-container {
+  width: 60%;
+  top: 15%;
+  right: 19.2%;
+}
+
+.user-details {
+  text-align: left;
+}
+
+.table-orders {
+  max-height: 200px;
+  overflow-y: scroll;
+  display: block;
+}
+
+tr, th{
+  text-align: center;
+}

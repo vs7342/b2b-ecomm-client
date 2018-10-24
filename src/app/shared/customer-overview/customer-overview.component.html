@@ -1,0 +1,118 @@
+<div id="customer-overview-modal">
+  <div class="modal-background fadeIn"></div>
+  <div class="modal-container fadeInDown">
+    <!--Close Button-->
+    <button type="button" class="close" aria-label="Close" (click)="emitCloseModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <h3 class="modal-header">
+      Customer Details
+    </h3>
+
+    <div class="modal-body">
+
+      <div class="user-details">
+        <strong> Customer Name </strong> : {{user.First_Name}} {{user.Last_Name}}
+        <br/>
+        <strong> Customer Email </strong> : {{user.Email}}
+      </div>
+
+      <br/>
+
+      <!--Products from previous orders-->
+      <table class="table table-bordered table-orders">
+
+        <!--Table Title / Headers-->
+        <thead>
+          <tr>
+            <td colspan="7">
+              <i><u> Products ordered in last 6 months </u></i>
+            </td>
+          </tr>
+          <tr>
+            <th width="10%">Order ID</th>
+            <th width="10%">Product ID</th>
+            <th width="20%">Product Name</th>
+            <th width="15%">Product Price</th>
+            <th width="10%">Qty Ordered</th>
+            <th width="15%">Ordered On</th>
+            <th width="20%">Order Status</th>
+          </tr>
+        </thead>
+
+        <!--Table body when no orders were found since last 6 months-->
+        <tbody *ngIf="product_in_orders.length == 0">
+          <tr>
+            <td colspan="7">
+              Customer has not ordered any items since 6 months.
+            </td>
+          </tr>
+        </tbody>
+
+        <!--Table body when orders were found in last 6 months-->
+        <tbody *ngIf="product_in_orders.length > 0">
+          <tr *ngFor="let single_product_details of product_in_orders">
+            <td>{{single_product_details['Order_Id']}}</td>
+            <td>{{single_product_details['Product_id']}}</td>
+            <td>{{single_product_details['Product_Name']}}</td>
+            <td>$ {{single_product_details['Product_Price'] | number : '1.2-2'}}</td>
+            <td>{{single_product_details['Qty_Ordered']}}</td>
+            <td>{{single_product_details['Ordered_On'] | date: 'MMM dd, y'}}</td>
+            <td>{{single_product_details['Order_Status']}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--Products from cart-->
+      <table class="table table-bordered table-carts">
+
+        <!--Table Title / Headers-->
+        <thead>
+          <tr>
+            <td colspan="4">
+              <i><u> Products currently in cart </u></i>
+            </td>
+          </tr>
+          <tr>
+            <th width="25%">Product ID</th>
+            <th width="25%">Product Name</th>
+            <th width="25%">Product Price</th>
+            <th width="25%">Qty</th>
+          </tr>
+        </thead>
+
+        <!--Table body when there are no products in cart-->
+        <tbody *ngIf="carts.length == 0">
+          <tr>
+            <td colspan="4">
+              Cart is currently empty for the user.
+            </td>
+          </tr>
+        </tbody>
+
+        <!--Table body when there are products present in cart-->
+        <tbody *ngIf="carts.length > 0">
+          <tr *ngFor="let single_cart_instance of carts">
+            <td> {{single_cart_instance['Product']['id']}} </td>
+            <td> {{single_cart_instance['Product']['Name']}} </td>
+            <td>$ {{single_cart_instance['Product']['Price'] | number : '1.2-2'}} </td>
+            <td> {{single_cart_instance['Quantity']}} </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <!--Button to close the modal-->
+      <div class="row">
+        <button class="btn btn-danger" (click)="emitCloseModal()">Close</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
