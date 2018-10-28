@@ -22,6 +22,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   url_part = '';
   sub: any;
   user_id = 0;
+  productSearchTxt: any;
 
   constructor(
     private publicService: PublicService,

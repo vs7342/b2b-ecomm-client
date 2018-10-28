@@ -8,7 +8,7 @@ import { Order } from '../../models/Order.model';
 })
 export class OrderDetailsModalComponent implements OnInit {
 
-  @Input('order') order: Order;
+  @Input('order') order: any;
   @Input('display_user_details') display_user_details: Boolean;
   @Output('close') close = new EventEmitter<null>();
   grand_total = 0;
