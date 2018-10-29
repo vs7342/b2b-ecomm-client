@@ -5,6 +5,13 @@
 
 export const environment = {
   production: false,
+  api_url: 'http://localhost:80',
+  s3_details: {
+    ACCESS_KEY_ID : 'dummy_access_key_id',
+    SECRET_ACCESS_KEY : 'dummy_secret',
+    S3_REGION : 'dummy_region',
+    BUCKET : 'dummy_bucket_name',
+  },
   firebase: {
     apiKey: 'api_key',
     authDomain: 'auth_domain',
